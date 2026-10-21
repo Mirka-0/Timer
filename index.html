@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Timer</title>
+        <meta name="description" content="Temporizador con alarma y fondo personalizable :D">
+        <link rel="icon" type="image/png" href="images/Cat_logo.png">
+        <link rel="stylesheet" href="style.css">
+        <script src="wi.js" defer></script>
+    </head>
+    <body>
+        <div class="ui-01" id="appContainer">
+            <header class="ui-02">
+                <div class="ui-03">
+                    <img alt="Cal Logo" class="ui-04" src="images/Cat_logo.png">
+                </div>
+                <div class="ui-05">
+                    <label class="ui-06"> 
+                        Wallpaper
+                    <input accept="image/*" class="ui-07" id="bgPhotoI" type="file">
+                    </label>
+                    <div class="ui-8">
+                        <label class="ui-9" for="bgColPick">
+                            Bg:
+                        </label>
+                        <input class="ui-10" id="bgColPick" title="Customize background colour" type="color" value="#0a0a0a">
+                    </div>
+                    <div class="ui-11">
+                        <label class="ui-12" for="volRange">
+                            Vol:
+                        </label>
+                        <input class="ui-13" id="volRange" max="100" min="0" type="range" value="50">
+                        <span class="ui-14" id="volLbl">
+                            50%
+                        </span>
+                    </div>
+                </div>
+            </header>
+            <main class="ui-15">
+                <div class="ui-16">
+                    <div class="ui-17" id="timerDispC">
+                        <input class="ui-18" id="editMins" max="180" min="0" title="Click to type minutes" type="number" value="25">
+                        <span class="ui-19">
+                            :
+                        </span>
+                        <input class="ui-20" id="editSecs" max="59" min="0" title="Click to type seconds" type="number" value="0">
+                    </div>
+                    <div class="ui-21">
+                        <div class="ui-22" id="progressBar">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-23">
+                    <button class="ui-24" id="startBttn">
+                        Start
+                    </button>
+                    <button class="ui-25" id="resetBttn">
+                        Reset
+                    </button>
+                </div>
+                <div class="ui-26">
+                    <div class="ui-27">
+                        <label class="ui-28">
+                            Alarm Song:
+                        </label>
+                        <label class="ui-29">
+                            Upload .mp3
+                            <input accept="audio/mp3, audio/*" class="ui-30" id="customAudI" type="file">
+                        </label>
+                    </div>
+                    <select class="ui-31" id="songSel">
+                        <option value="images/Phantom_of_The_Opera.mp3">
+                            Phantom of the Opera
+                        </option>
+                        <option value="images/F1_max_heart.attack.mp3">
+                            F1 Max Heart Attack
+                        </option>
+                        <option value="images/Purple_rain.mp3">
+                            Purple Rain
+                        </option>
+                        <option value="images/Pocket_Full_Of_Sunshine.mp3">
+                            Pocket Full of Sunshine
+                        </option>
+                        <option value="images/Gangam_style.mp3">
+                            Gangnam Style
+                        </option>
+                        <option value="images/idk_Omnious_voices.mp3">
+                            Omnious Voices
+                        </option>
+                        <option value="beep">
+                            Classic Beep
+                        </option>
+                    </select>
+                    <div class="ui-32">
+                        <button class="ui-33" id="testSoundBttn">
+                            Preview Sound
+                        </button>                   
+                    </div>
+                </div>
+            </main>
+            <div aria-labelledby="alarmHeading" aria-modal="true" class="ui-34" id="alarmModal" role="dialog">
+                <div class="ui-35">
+                    <h2 class="ui-36" id="alarmHeading">
+                        Time's Up!
+                    </h2>
+                    <p class="ui-37" id="alarmSN">
+                        Your alarm is playing.
+                    </p>
+                    <div class="ui-38">
+                        <button class="ui-39" id="stopAlarmBttn">
+                            Stop Alarm
+                        </button>
+                        <button class="ui-40" id="snoozeBttn">
+                            Snooze (+5 min)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
