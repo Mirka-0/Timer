@@ -3,8 +3,11 @@ let duracion=restante;
 let fin=0;
 let reloj=null;
 let audio=null;
-let contexto =null;
+let contexto=null;
+let fuente=null;
+let ganancia=null;
 let pitidos=null;
+let espera=null;
 let previa=false;
 let urlFondo=null;
 let urlMusica=null;
@@ -12,7 +15,7 @@ let urlMusica=null;
 function mostrarTiempo(){
     document.getElementById('editMins').value=String(Math.floor(restante/60)).padStart(2,'0');
     document.getElementById('editSecs').value=String(restante%60).padStart(2,'0');
-    let seg=reloj===null?restante:Math.max(0,(fin-Date.now())/1000)
+    let seg = reloj === null ? restante : Math.max(0,(fin-Date.now())/1000)
     document.getElementById('progressBar').style.transform=`scaleX(${duracion ? seg / duracion : 0})`;
 }
 function leerTiempo(){
@@ -38,8 +41,8 @@ function actualizar(){
     }
 }
 function iniciarReloj(){
-    if (restante <=0 || reloj !== null) return;
-    fin=Date.now()+restante*1000;
+    if (restante <= 0 || reloj !== null) return;
+    fin = Date.now()+restante*1000;
     document.getElementById('startBttn').textContent='Pause';
     document.getElementById('editMins').disabled =true;
     document.getElementById('editSecs').disabled =true;
@@ -47,6 +50,8 @@ function iniciarReloj(){
 }
 
 document.getElementById('startBttn').addEventListener('click', () => {
+    if (!contexto) contexto = new AudioContext();
+    contexto.resume().catch(() => {});
     if(reloj !== null){
         actualizar();
         if(reloj!==null) pararReloj();
@@ -73,13 +78,15 @@ function detenerAudio(){
     }
 
     clearInterval(pitidos);
+    clearTimeout(espera);
     pitidos=null;
-    if (contexto) {
-        contexto.close().catch(()=>{});
-        contexto=null;
-    }
+    espera=null;
+    if (fuente) fuente.disconnect();
+    if (ganancia) ganancia.disconnect();
+    fuente = null;
+    ganancia=null;
     previa=false;
-    document.getElementById('testSoundBttn').textContent ='Preview Song';
+    document.getElementById('testSoundBttn').textContent='Preview Song';
 }
 
 function sonarPitido() {
@@ -95,30 +102,32 @@ function sonarPitido() {
 }
 function reproducir(repetir=false){
     detenerAudio();
+    if(!contexto) contexto=new AudioContext();
+    contexto.resume().catch(() => {})
     if(document.getElementById('songSel').value==='beep'){
-        contexto=new AudioContext();
-        contexto.resume().catch(()=>{});
         sonarPitido();
 
         if(repetir){
             pitidos=setInterval(sonarPitido, 1200);
         } else{
-            let actual=contexto;
-            setTimeout(()=> {
-                if(contexto===actual) detenerAudio();
-            }, 500);
+            espera=setTimeout(detenerAudio, 500);
         }
         return;
     }
 
     let pista=new Audio(document.getElementById('songSel').value);
     audio=pista;
-    pista.volume=Number(document.getElementById('volRange').value)/100;
+    fuente=contexto.createMediaElementSource(pista);
+    ganancia=contexto.createGain();
+    ganancia.gain.value=Number(document.getElementById('volRange').value) / 100;
+    fuente.connect(ganancia);
+    ganancia.connect(contexto.destination);
     pista.loop=repetir;
     pista.addEventListener('ended',()=> {
         if (audio===pista) detenerAudio();
+
     });
-    pista.play().catch(()=>{
+    pista.play().catch(() => {
         if(audio!== pista) return;
         detenerAudio();
         if(document.getElementById('alarmModal').style.display==='flex'){
@@ -142,7 +151,7 @@ document.getElementById('songSel').addEventListener('change',()=>{
 document.getElementById('volRange').addEventListener('input', ()=> {
     let vol=Number(document.getElementById('volRange').value);
     document.getElementById('volLbl').textContent=`${vol}%`;
-    if(audio) audio.volume= vol /100;
+    if(ganancia) ganancia.gain.value = vol /100;
 });
 function activarAlarma(){
     document.getElementById('alarmSN').textContent= 
@@ -170,14 +179,15 @@ document.getElementById('bgColPick').addEventListener('input', () =>{
     if(urlFondo) URL.revokeObjectURL(urlFondo);
     urlFondo=null;
 });
-document.getElementById('bgPhotoI').addEventListener('change',(evento)=>{
+document.getElementById('bgPhotoI').addEventListener('change',(evento)=> {
     let archivo=evento.target.files[0];
     if(!archivo)return;
     if(urlFondo) URL.revokeObjectURL(urlFondo);
     urlFondo=URL.createObjectURL(archivo);
     document.getElementById('appContainer').style.backgroundImage=`url("${urlFondo}")`;
+    evento.target.value='';
 });
-document.getElementById('customAudI').addEventListener('change', (evento)=>{
+document.getElementById('customAudI').addEventListener('change', (evento)=> {
     let archivo=evento.target.files[0];
     if(!archivo)return;
     detenerAudio();
@@ -185,11 +195,12 @@ document.getElementById('customAudI').addEventListener('change', (evento)=>{
     document.getElementById('musicaSubida')?.remove();
     urlMusica=URL.createObjectURL(archivo);
     let opcion= new Option(
-        `${archivo.name.replace(/\.[^.]+$/, '')} (Uploaded)`,
+        archivo.name.replace(/\.[^.]+$/, ''),
         urlMusica
     );
     opcion.id='musicaSubida';
     document.getElementById('songSel').add(opcion);
     document.getElementById('songSel').value=urlMusica;
+    evento.target.value='';
 });
 mostrarTiempo();
