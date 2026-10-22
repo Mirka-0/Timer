@@ -31,6 +31,7 @@ On Mobile
 6. Once the timer finishes your alarm will play, you can choose Stop Alarm or Snooze to postpone it for five minutes :D
 
 ## Project Structure
+```
 .
 ├── README.txt
 ├── images
@@ -45,6 +46,7 @@ On Mobile
 ├── screenshots
 ├── style.css
 └── wi.js
+```
 
 ## Notes
 * Everything runs directly in your browser!
