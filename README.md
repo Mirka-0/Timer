@@ -1,12 +1,12 @@
-#Timer
-##A simple customizable timer!
+# Timer
+## A simple customizable timer!
 Built using HTML, CSS and JavaScript (no external dependencies)
 
 Have you ever been annoyed by your phone's timer?
 Sometimes the alarm is super loud, sometimes it doesn't make any sound at all.
 This project lets you choose your own alarm music and change the background :D
 
-Features:
+## Features:
 - Countdown timer
 - Music alarms
 - Upload your own audio files
@@ -14,7 +14,7 @@ Features:
 - Custom background colors and images
 - Snooze your alarm for five more minutes
 
-##Preview:
+## Preview:
 On Desktop
 ![image alt] ()
 
@@ -22,7 +22,7 @@ On Mobile
 ![image alt] ()
 
 
-##How to use:
+## How to use:
 1. Enter the time you want.
 2. Choose a song from the menu or upload your own audio (first preview the sound, otherwise it wond play the audio).
 3. Adjust the volume and customize the background if you want.
@@ -30,7 +30,7 @@ On Mobile
 5. Use Pause or Reset whenever you need to.
 6. Once the timer finishes your alarm will play, you can choose Stop Alarm or Snooze to postpone it for five minutes :D
 
-##Project Structure
+## Project Structure
 .
 ├── README.txt
 ├── images
@@ -46,7 +46,7 @@ On Mobile
 ├── style.css
 └── wi.js
 
-##Notes
+## Notes
 * Everything runs directly in your browser!
 you can add a .png image on top of the background of color, but make sure that you pick the color first and then upload ypur png :D
 * Uploaded backgrounds and audio files are temporary, I'll add a backend on the next version.
