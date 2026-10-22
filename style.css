@@ -26,8 +26,9 @@ input[type="number"] {
     appearance: textfield;
 }
 
-input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button{
-    appearance: textfield;
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
     margin: 0;
 }
 
@@ -48,8 +49,8 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 
 .ui-02{
-    width: 100%;
-    max-width: 700px;
+    width: 92%;
+    max-width: clamp(700px, 55vw, 950,px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,18 +86,13 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     justify-content: center;
     gap: 0.3rem;
     padding: 0.35rem 0.75rem;
-    background: #1a1a1acc;
-    border: 1px solid #ffffff26;
+    
     border-radius: 10px;
     color:#e5e5e5;
     font-size: 0.75rem;
     font-weight: 600;
     cursor:pointer;
-    transition: background-color 0.2s ease;
-}
 
-.ui-06:hover{
-    background: #323232e6;
 }
 
 .ui-07{
@@ -108,8 +104,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     align-items: center;
     gap: 0.4rem;
     padding: 0.35rem 0.75rem;
-    background: #1a1a1acc;
-    border: 1px solid #ffffff26;
+
     border-radius: 10px;
 }
 
@@ -133,8 +128,6 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     align-items: center;
     gap: 0.5rem;
     padding: 0.35rem 0.75rem;
-    background: #1a1a1acc;
-    border: 1px solid #ffffff26;
     border-radius: 10px;
 }
 
@@ -158,8 +151,10 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 
 .ui-15{
-    width: 100%;
-    max-width: 700px;
+    width: 90%;
+    max-width: clamp(700px, 55vw, 950,px);
+    min-height: clamp(450px, 55dvh, 650px);
+    justify-content: space-evenly;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -225,7 +220,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 .ui-21{
     width: 100%;
-    height: 6px;
+    height: 18px;
     margin-top: 0.5rem;
     background: rgb(255 255 255 /15%);
     border-radius: 9999px;
@@ -236,7 +231,10 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     width: 100%;
     height: 100%;
     background: rgb(255 255 255 / 85%);
-    transition: width 0.3s linear;
+    border-radius: 9999px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.1s linear;
 }
 .ui-23{
     width: 100%;
@@ -298,31 +296,35 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     justify-content: center;
     gap: 0.4rem;
     padding: 0.4rem 0.8rem;
-    background: rgb(38 38 38 / 80%);
-    border: 1px solid rgb(255 255 255 / 15%);
-    border-radius: 8px;
+    
+    border-radius: 6px;
     color: #e5e5e5;
     font-size: 0.8rem;
     font-weight: 600;
     cursor:pointer;
-    transition: background-color 0.2s ease;
 }
-.ui-29:hover{
-    background: rgb(60 60 60 / 90%);
-}
+
+
 .ui-30{
     display: none;
 }
 
 .ui-31{
     width: 100%;
-    padding: 0.75rem 1rem;
-    background:rgb(10 10 10 / 85%);
-    border: 1px solid #404040;
-    border-radius: 12px;
-    color: #ffff;
-    font-size: 0.9rem;
+    padding: 0.85rem 2.5rem 0.85rem 1.25rem;
+    text-indent: 0.35rem;
+    min-height: 27px;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #cdcdcd 50%), linear-gradient(135deg, #2d2d2d 50%, transparent 50%);
+    background-position: calc(100% - 19px) center, calc(100% - 13px)center;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    color: #f5f5f5;
+    font-size: 0.90rem;
+    font-weight: 450;
     cursor: pointer;
+
 }
 
 .ui-31:focus-visible{
@@ -341,16 +343,12 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .ui-33{
     flex: 1;
     padding: 0.6rem;
-    background: rgb(26 26 26 / 80%);
-    border: 1px solid #ffffff26;
-    border-radius: 10px;
+    
+    border-radius: 6px;
     color: #d4d4d4;
     font-size: 0.85rem;
     font-weight: 600;
-    transition: background-color 0.2s ease;
-}
-.ui-33:hover{
-    background: rgb(50 50 50 / 90%);
+    
 }
 
 .ui-34{
@@ -395,24 +393,49 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .ui-39, .ui-40 {
     flex: 1;
     padding: 0.85rem;
-    background: transparent;
-    border: 1px solid #ffff;
+    
+    
     border-radius: 12px;
     color: #ffff;
     font-weight: 700;
+}
+
+.ui-06,
+.ui-8,
+.ui-11,
+.ui-29,
+.ui-31,
+.ui-33,
+.ui-39,
+.ui-40 {
+    background-color: rgb(26 26 26 / 40%);
+    border: 1px solid rgba(182, 182, 182, 0.4);
     transition: background-color 0.2s ease;
 }
 
-.ui-39:hover, .ui-40:hover{
-    background: rgb(255 255 255 / 10%);
+.ui-06:hover,
+.ui-8:hover,
+.ui-11:hover,
+.ui-29:hover,
+.ui-31:hover,
+.ui-33:hover,
+.ui-39:hover,
+.ui-40:hover{
+    background-color: rgb(50 50 50 / 60%);
 }
 
 button:focus-visible,
-input:focus-visible,
 select:focus-visible,
+input:not(.ui-18):not(.ui-20):focus-visible,
 .ui-06:focus-within{
     outline: 2px solid #d1d9ff;
     outline-offset: 2px;
+}
+.ui-18:focus-visible,
+.ui-20:focus-visible{
+    outline: none;
+    background: rgb(255 255 255 / 7%);
+    border-radius: 5px;
 }
 @media (max-width: 768px){
     .ui-01{
@@ -453,9 +476,13 @@ select:focus-visible,
         width: 55px;
     }
     .ui-15{
+        min-height: 72dvh;
         padding: 1.75rem 1rem;
         gap: 1.75rem;
         border-radius: 18px;
+    }
+    .ui-02, .ui-15 {
+        width:100%;
     }
     .ui-17{
         font-size: clamp(2.8rem, 12vw, 4rem);

@@ -1,67 +1,65 @@
-ihihihih :DD guys where can i find the readme guide 
-You should write about your project, what it does, some screenshots of it and then if it's hosted on vercel, put that link in there too. for the instructions it should be something like
+#Timer
+##A simple customizable timer!
+Built using HTML, CSS and JavaScript (no external dependencies)
+
+Have you ever been annoyed by your phone's timer?
+Sometimes the alarm is super loud, sometimes it doesn't make any sound at all.
+This project lets you choose your own alarm music and change the background :D
+
+Features:
+- Countdown timer
+- Music alarms
+- Upload your own audio files
+- Adjustable volume (independent on you device sound level)
+- Custom background colors and images
+- Snooze your alarm for five more minutes
+
+##Preview:
+On Desktop
+![image alt] ()
+
+On Mobile
+![image alt] ()
 
 
-Clone the repository
-git clone https://github.com/your-username/project-name.git
+##How to use:
+1. Enter the time you want.
+2. Choose a song from the menu or upload your own audio (first preview the sound, otherwise it wond play the audio).
+3. Adjust the volume and customize the background if you want.
+4. Click Start to begin the countdown. 
+5. Use Pause or Reset whenever you need to.
+6. Once the timer finishes your alarm will play, you can choose Stop Alarm or Snooze to postpone it for five minutes :D
 
-Navigate to the project directory:
-cd project-name
+##Project Structure
+.
+├── README.txt
+├── images
+│   ├── Cat_logo.png
+│   ├── F1_max_heart.attack.mp3
+│   ├── Gangam_style.mp3
+│   ├── Phantom_of_the_Opera.mp3
+│   ├── Pocket_Full_Of_Sunshine.mp3
+│   ├── Purple_rain.mp3
+│   └── idk_Omnious_voices.mp3
+├── index.html
+├── screenshots
+├── style.css
+└── wi.js
 
-Install dependencies:
-npm install
+##Notes
+* Everything runs directly in your browser!
+you can add a .png image on top of the background of color, but make sure that you pick the color first and then upload ypur png :D
+* Uploaded backgrounds and audio files are temporary, I'll add a backend on the next version.
+* Some browsers could restrict automatic audio playback, so please check if yours does.
+* Volume warning! If you choose F1 Max Heart Attack please lower your volume before previewing D: it's REALLY loud
 
-Start the development server:
-npm run dev
+The idea was born after realizing that my phone's timer would:
+a) Give me a heart attack with its horrible alarm sound because I can't buy a nice ringtone.
+b) When it's time for the timer to ring, sometimes it just doesn't make any sound at all ._.
+Maybe I sould make an alarm clock next 
 
-Open the URL displayed in your terminal, http://localhost:5173.
 
+##Copyright for the audios
+The music used in this project belongs to its respective artists and copyright companies, I don't claim ownership or any song.
 
-dont mind this pls i'm trying to do some research to write a good readme# Foobar
-
-Foobar is a Python library for dealing with word pluralization.
-
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```bash
-pip install foobar
-```
-
-## Usage
-
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-Name
-
-Choose a self-explaining name for your project.
-Description
-
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Made with <3 and a little frustration with phone timers.

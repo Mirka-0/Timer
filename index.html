@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
         <div class="ui-01" id="appContainer">
             <header class="ui-02">
                 <div class="ui-03">
-                    <img alt="Cal Logo" class="ui-04" src="images/Cat_logo.png">
+                    <img alt="Cat Logo" class="ui-04" src="images/Cat_logo.png">
                 </div>
                 <div class="ui-05">
                     <label class="ui-06"> 
@@ -40,7 +40,7 @@
             <main class="ui-15">
                 <div class="ui-16">
                     <div class="ui-17" id="timerDispC">
-                        <input class="ui-18" id="editMins" max="180" min="0" title="Click to type minutes" type="number" value="25">
+                        <input class="ui-18" id="editMins" max="180" min="0" title="Click to type minutes" type="number" value="0">
                         <span class="ui-19">
                             :
                         </span>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="ui-26">
                     <div class="ui-27">
-                        <label class="ui-28">
+                        <label class="ui-28" for="songSel">
                             Alarm Song:
                         </label>
                         <label class="ui-29">
@@ -71,6 +71,9 @@
                         </label>
                     </div>
                     <select class="ui-31" id="songSel">
+                        <option value="images/Gangam_style.mp3">
+                            Gangnam Style
+                        </option>
                         <option value="images/Phantom_of_the_Opera.mp3">
                             Phantom of the Opera
                         </option>
@@ -83,9 +86,6 @@
                         <option value="images/Pocket_Full_Of_Sunshine.mp3">
                             Pocket Full of Sunshine
                         </option>
-                        <option value="images/Gangam_style.mp3">
-                            Gangnam Style
-                        </option>
                         <option value="images/idk_Omnious_voices.mp3">
                             Omnious Voices
                         </option>
@@ -95,7 +95,7 @@
                     </select>
                     <div class="ui-32">
                         <button class="ui-33" id="testSoundBttn">
-                            Preview Sound
+                            Preview Song
                         </button>                   
                     </div>
                 </div>

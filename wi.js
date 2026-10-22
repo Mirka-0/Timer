@@ -1,4 +1,4 @@
-let restante = 1500;
+let restante = 0;
 let duracion=restante;
 let fin=0;
 let reloj=null;
@@ -10,16 +10,17 @@ let urlFondo=null;
 let urlMusica=null;
 
 function mostrarTiempo(){
-    document.getElementById('editMins').value=Math.floor(restante/60);
+    document.getElementById('editMins').value=String(Math.floor(restante/60)).padStart(2,'0');
     document.getElementById('editSecs').value=String(restante%60).padStart(2,'0');
-    document.getElementById('progressBar').style.width=`${duracion ? restante / duracion * 100 : 0}%`;
+    let seg=reloj===null?restante:Math.max(0,(fin-Date.now())/1000)
+    document.getElementById('progressBar').style.transform=`scaleX(${duracion ? seg / duracion : 0})`;
 }
 function leerTiempo(){
     let min=Math.max(0, Math.min(180, Number(document.getElementById('editMins').value) ||0));
-    let seg=Math.max(0, Math.min(59, Number(document.getElementsById('editSecs').value) ||0));
+    let seg=Math.max(0, Math.min(59, Number(document.getElementById('editSecs').value) ||0));
     restante=Math.floor(min)*60+ Math.floor(seg);
     duracion=restante;
-    document.getElementById('progressBar').style.width= duracion ?'100%' : '0%';
+    document.getElementById('progressBar').style.transform= `scaleX(${duracion ? 1 : 0})`;
 }
 function pararReloj(){
     clearInterval(reloj);
@@ -41,11 +42,11 @@ function iniciarReloj(){
     fin=Date.now()+restante*1000;
     document.getElementById('startBttn').textContent='Pause';
     document.getElementById('editMins').disabled =true;
-    document.getElementsById('editSecs').disabled =true;
-    reloj=setInterval(actualizar, 200);
+    document.getElementById('editSecs').disabled =true;
+    reloj=setInterval(actualizar, 100);
 }
 
-document.getElementById('startBttn').addEventListener('click', () =>{
+document.getElementById('startBttn').addEventListener('click', () => {
     if(reloj !== null){
         actualizar();
         if(reloj!==null) pararReloj();
@@ -53,12 +54,12 @@ document.getElementById('startBttn').addEventListener('click', () =>{
         iniciarReloj();
     }
 });
-document.getElementById('resetBttn'.addEventListener('click', ()=>{
+document.getElementById('resetBttn').addEventListener('click', () => {
     pararReloj();
     detenerAlarma();
     restante=duracion;
     mostrarTiempo();
-}));
+});
 
 document.getElementById('editMins').addEventListener('input', leerTiempo);
 document.getElementById('editSecs').addEventListener('input', leerTiempo);
@@ -141,11 +142,11 @@ document.getElementById('songSel').addEventListener('change',()=>{
 document.getElementById('volRange').addEventListener('input', ()=> {
     let vol=Number(document.getElementById('volRange').value);
     document.getElementById('volLbl').textContent=`${vol}%`;
-    if(audio) audio.volume=volumen/100;
+    if(audio) audio.volume= vol /100;
 });
 function activarAlarma(){
     document.getElementById('alarmSN').textContent= 
-        `Playing: ${document.getById(songSel).selectedOptions[0].textContent.trim()}`;
+        `Playing: ${document.getElementById('songSel').selectedOptions[0].textContent.trim()}`;
     document.getElementById('alarmModal').style.display='flex';
     reproducir(true);
 }
@@ -153,6 +154,7 @@ function detenerAlarma(){
     document.getElementById('alarmModal').style.display='none';
     detenerAudio();
 }
+
 document.getElementById('stopAlarmBttn').addEventListener('click', detenerAlarma);
 document.getElementById('snoozeBttn').addEventListener('click', () =>{
         detenerAlarma();
@@ -183,11 +185,11 @@ document.getElementById('customAudI').addEventListener('change', (evento)=>{
     document.getElementById('musicaSubida')?.remove();
     urlMusica=URL.createObjectURL(archivo);
     let opcion= new Option(
-        `${archivo.name.replace(/\.[^.]+$/,'')} (Uploaded)`,
+        `${archivo.name.replace(/\.[^.]+$/, '')} (Uploaded)`,
         urlMusica
     );
-    opcion.id='MusicaSubida';
-    document.getElementById('songSel').addEventListener(opcion);
+    opcion.id='musicaSubida';
+    document.getElementById('songSel').add(opcion);
     document.getElementById('songSel').value=urlMusica;
 });
 mostrarTiempo();
