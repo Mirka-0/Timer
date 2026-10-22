@@ -16,7 +16,7 @@ This project lets you choose your own alarm music and change the background :D
 
 ## Preview:
 On Desktop
-![image alt] ()
+![image alt] (https://github.com/Mirka-0/Timer/blob/0c724104c962e700a47771fcfd9713f1a2d6d657/screenshots/Comp.png)
 
 On Mobile
 ![image alt] ()
