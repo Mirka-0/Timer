@@ -1,5 +1,8 @@
 # Timer
 ## A simple customizable timer!
+[Live at]()
+[Hackatime](https://hackatime.hackclub.com/@Mirka/project/Timer)
+
 Built using HTML, CSS and JavaScript (no external dependencies)
 
 Have you ever been annoyed by your phone's timer?
@@ -16,17 +19,17 @@ This project lets you choose your own alarm music and change the background :D
 
 ## Preview:
 On Desktop
-![image alt](https://github.com/Mirka-0/Timer/blob/0c724104c962e700a47771fcfd9713f1a2d6d657/screenshots/Comp.png)
+![image alt]()
 
 On Mobile
-![image alt](https://github.com/Mirka-0/Timer/blob/0c724104c962e700a47771fcfd9713f1a2d6d657/screenshots/Phone.jpg)
+![image alt]()
 
 
 ## How to use:
 1. Enter the time you want.
-2. Choose a song from the menu or upload your own audio (first preview the sound, otherwise it wond play the audio).
+2. Choose a song from the menu or upload your own audio (first preview the sound, otherwise it won't play the audio).
 3. Adjust the volume and customize the background if you want.
-4. Click Start to begin the countdown. 
+4. Click Start to begin the countdown!
 5. Use Pause or Reset whenever you need to.
 6. Once the timer finishes your alarm will play, you can choose Stop Alarm or Snooze to postpone it for five minutes :D
 
@@ -51,14 +54,16 @@ On Mobile
 ## Notes
 * Everything runs directly in your browser!
 you can add a .png image on top of the background of color, but make sure that you pick the color first and then upload ypur png :D
-* Uploaded backgrounds and audio files are temporary, I'll add a backend on the next version.
-* Some browsers could restrict automatic audio playback, so please check if yours does.
+* Your settings, music(uploaded) and backgrounds(uploaded) are saved locally in your browser.
+* Some browsers could restrict automatic audio playback, so please check if yours does(especially on phones).
 * Volume warning! If you choose F1 Max Heart Attack please lower your volume before previewing D: it's REALLY loud
 
+## About the project
 The idea was born after realizing that my phone's timer would:
 a) Give me a heart attack with its horrible alarm sound because I can't buy a nice ringtone.
 b) When it's time for the timer to ring, sometimes it just doesn't make any sound at all ._.
 Maybe I sould make an alarm clock next 
+While working in this project I had the opportunity to retake practice on HTML, CSS, JavaScript(specially storage)
 
 
 ##Copyright for the audios
