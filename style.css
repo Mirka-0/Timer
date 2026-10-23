@@ -182,7 +182,7 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: center;
     color: rgb(255, 255, 255);
     font-family: monospace;
-    font-size: clamp(2.8rem, 11vw, 6rem);
+    font-size: clamp(2rem, 7vw, 5rem);
     font-weight: 900;
     letter-spacing: -2px;
     text-shadow: 0 4px 12px rgb(255 255 255 /20%);
@@ -200,8 +200,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .ui-18{
-    width: 3.2ch;
-    text-align: right;
+    width: 2.3ch;
+    text-align: center;
 }
 
 .ui-19{
@@ -210,8 +210,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .ui-20{
-    width: 2.2ch;
-    text-align: left;
+    width: 2.3ch;
+    text-align: center;
 }
 
 .ui-18:disabled, .ui-20:disabled{
@@ -485,7 +485,7 @@ input:not(.ui-18):not(.ui-20):focus-visible,
         width:100%;
     }
     .ui-17{
-        font-size: clamp(2.8rem, 12vw, 4rem);
+        font-size: clamp(1.7rem, 8vw, 3rem);
     }
     .ui-23{
         gap: 0.75rem;

@@ -11,24 +11,43 @@ let espera=null;
 let previa=false;
 let urlFondo=null;
 let urlMusica=null;
+let bd=null;
+
+function guardar(clave,valor){
+    if(!bd) return;
+    bd.transaction('datos','readwrite').objectStore('datos').put(valor,clave);
+}
+function guardarAjustes(){
+    guardar('ajustes',{
+        duracion,
+        volumen:document.getElementById('volRange').value,
+        color:document.getElementById('bgColPick').value,
+        pista:document.getElementById('songSel').value===urlMusica? 'subida':document.getElementById('songSel').value,
+        fondo:urlFondo? 'imagen':'color'
+    });
+}
 
 function mostrarTiempo(){
-    document.getElementById('editMins').value=String(Math.floor(restante/60)).padStart(2,'0');
+    document.getElementById('editHrs').value=String(Math.floor(restante/3600)).padStart(2,'0');
+    document.getElementById('editMins').value=String(Math.floor(restante %3600/60)).padStart(2,'0');
     document.getElementById('editSecs').value=String(restante%60).padStart(2,'0');
-    let seg = reloj === null ? restante : Math.max(0,(fin-Date.now())/1000)
+    let seg = reloj === null ? restante : Math.max(0,(fin-Date.now())/1000);
     document.getElementById('progressBar').style.transform=`scaleX(${duracion ? seg / duracion : 0})`;
 }
 function leerTiempo(){
-    let min=Math.max(0, Math.min(180, Number(document.getElementById('editMins').value) ||0));
+    let hrs=Math.max(0, Math.min(99, Number(document.getElementById('editHrs').value) ||0));
+    let min=Math.max(0, Math.min(59, Number(document.getElementById('editMins').value) ||0));
     let seg=Math.max(0, Math.min(59, Number(document.getElementById('editSecs').value) ||0));
-    restante=Math.floor(min)*60+ Math.floor(seg);
+    restante=Math.floor(hrs)*3600+Math.floor(min)*60+ Math.floor(seg);
     duracion=restante;
     document.getElementById('progressBar').style.transform= `scaleX(${duracion ? 1 : 0})`;
+    guardarAjustes();
 }
 function pararReloj(){
     clearInterval(reloj);
     reloj=null;
     document.getElementById('startBttn').textContent='Start';
+    document.getElementById('editHrs').disabled=false;
     document.getElementById('editMins').disabled=false;
     document.getElementById('editSecs').disabled=false;
 }
@@ -44,6 +63,7 @@ function iniciarReloj(){
     if (restante <= 0 || reloj !== null) return;
     fin = Date.now()+restante*1000;
     document.getElementById('startBttn').textContent='Pause';
+    document.getElementById('editHrs').disabled =true;
     document.getElementById('editMins').disabled =true;
     document.getElementById('editSecs').disabled =true;
     reloj=setInterval(actualizar, 100);
@@ -51,7 +71,7 @@ function iniciarReloj(){
 
 document.getElementById('startBttn').addEventListener('click', () => {
     if (!contexto) contexto = new AudioContext();
-    contexto.resume().catch(() => {});
+    contexto.resume().then(null, () => console.warn('Audio unavailable :('));
     if(reloj !== null){
         actualizar();
         if(reloj!==null) pararReloj();
@@ -65,9 +85,10 @@ document.getElementById('resetBttn').addEventListener('click', () => {
     restante=duracion;
     mostrarTiempo();
 });
-
+document.getElementById('editHrs').addEventListener('input', leerTiempo);
 document.getElementById('editMins').addEventListener('input', leerTiempo);
 document.getElementById('editSecs').addEventListener('input', leerTiempo);
+document.getElementById('editHrs').addEventListener('blur', mostrarTiempo);
 document.getElementById('editMins').addEventListener('blur', mostrarTiempo);
 document.getElementById('editSecs').addEventListener('blur', mostrarTiempo);
 function detenerAudio(){
@@ -103,7 +124,7 @@ function sonarPitido() {
 function reproducir(repetir=false){
     detenerAudio();
     if(!contexto) contexto=new AudioContext();
-    contexto.resume().catch(() => {})
+    contexto.resume().then(null,()=>console.warn('Audio unavailable'));
     if(document.getElementById('songSel').value==='beep'){
         sonarPitido();
 
@@ -127,7 +148,7 @@ function reproducir(repetir=false){
         if (audio===pista) detenerAudio();
 
     });
-    pista.play().catch(() => {
+    pista.play().then(null,() => {
         if(audio!== pista) return;
         detenerAudio();
         if(document.getElementById('alarmModal').style.display==='flex'){
@@ -147,11 +168,13 @@ document.getElementById('testSoundBttn').addEventListener('click',() => {
 });
 document.getElementById('songSel').addEventListener('change',()=>{
     if(previa) detenerAudio();
+    guardarAjustes();
 });
 document.getElementById('volRange').addEventListener('input', ()=> {
     let vol=Number(document.getElementById('volRange').value);
     document.getElementById('volLbl').textContent=`${vol}%`;
     if(ganancia) ganancia.gain.value = vol /100;
+    guardarAjustes();
 });
 function activarAlarma(){
     document.getElementById('alarmSN').textContent= 
@@ -169,6 +192,7 @@ document.getElementById('snoozeBttn').addEventListener('click', () =>{
         detenerAlarma();
         restante=300;
         duracion=restante;
+        guardarAjustes();
         mostrarTiempo();
         iniciarReloj();
 });
@@ -178,6 +202,7 @@ document.getElementById('bgColPick').addEventListener('input', () =>{
     document.getElementById('appContainer').style.backgroundImage='none';
     if(urlFondo) URL.revokeObjectURL(urlFondo);
     urlFondo=null;
+    guardarAjustes();
 });
 document.getElementById('bgPhotoI').addEventListener('change',(evento)=> {
     let archivo=evento.target.files[0];
@@ -185,6 +210,8 @@ document.getElementById('bgPhotoI').addEventListener('change',(evento)=> {
     if(urlFondo) URL.revokeObjectURL(urlFondo);
     urlFondo=URL.createObjectURL(archivo);
     document.getElementById('appContainer').style.backgroundImage=`url("${urlFondo}")`;
+    guardar('fondo', archivo);
+    guardarAjustes();
     evento.target.value='';
 });
 document.getElementById('customAudI').addEventListener('change', (evento)=> {
@@ -195,12 +222,66 @@ document.getElementById('customAudI').addEventListener('change', (evento)=> {
     document.getElementById('musicaSubida')?.remove();
     urlMusica=URL.createObjectURL(archivo);
     let opcion= new Option(
-        archivo.name.replace(/\.[^.]+$/, ''),
+        archivo.name.replace(/\.[^.]+$/,''),
         urlMusica
     );
     opcion.id='musicaSubida';
     document.getElementById('songSel').add(opcion);
     document.getElementById('songSel').value=urlMusica;
+    guardar('musica',archivo);
+    guardarAjustes();
     evento.target.value='';
 });
+function cargar(){
+    let req=indexedDB.open('timer',1);
+    req.onupgradeneeded=()=>{
+        req.result.createObjectStore('datos');
+    };
+    req.onsuccess=()=>{
+        bd=req.result;
+        let tabla=bd.transaction('datos', 'readonly').objectStore('datos');
+        tabla.get('ajustes').onsuccess=(evento)=>{
+            let datos=evento.target.result||{};
+            duracion=Math.max(0,Math.min(359999,Number(datos.duracion)||0));
+            restante=duracion;
+            if(datos.volumen!==undefined){
+                document.getElementById('volRange').value=datos.volumen;
+            }
+            document.getElementById('volLbl').textContent=`${document.getElementById('volRange').value}%`;
+            if(datos.color){
+                document.getElementById('bgColPick').value=datos.color;
+            }
+            document.getElementById('appContainer').style.backgroundColor= document.getElementById('bgColPick').value;
+            if(datos.pista && datos.pista!=='subida'){
+                document.getElementById('songSel').value=datos.pista;
+            }
+            mostrarTiempo();
+            tabla.get('fondo').onsuccess=(evento)=>{
+                let archivo=evento.target.result;
+                if(archivo && datos.fondo==='imagen'){
+                    urlFondo=URL.createObjectURL(archivo);
+                    document.getElementById('appContainer').style.backgroundImage=`url("${urlFondo}")`;
+                }
+            };
+            tabla.get('musica').onsuccess=(evento)=>{
+                let archivo=evento.target.result;
+                if(!archivo)return;
+                urlMusica=URL.createObjectURL(archivo);
+                let opcion=new Option(
+                    archivo.name.replace(/\.[^.]+$/,''),
+                    urlMusica
+                );
+                opcion.id='musicaSubida';
+                document.getElementById('songSel').add(opcion);
+                if(datos.pista==='subida'){
+                    document.getElementById('songSel').value=urlMusica;
+                }
+            };
+        };
+    };
+    req.onerror=()=>{
+        console.warn('Local storage is unavailable :(');
+    };
+}
 mostrarTiempo();
+cargar();
