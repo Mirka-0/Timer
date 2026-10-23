@@ -1,7 +1,8 @@
 # Timer
 ## A simple customizable timer!
-[Live at](https://mirka-0.github.io/Timer/)
-[Hackatime](https://hackatime.hackclub.com/@Mirka/project/Timer)
+[It's live here!](https://mirka-0.github.io/Timer/)
+
+[Hackatime :D](https://hackatime.hackclub.com/@Mirka/project/Timer)
 
 Built using HTML, CSS and JavaScript (no external dependencies)
 
