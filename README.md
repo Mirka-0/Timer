@@ -1,6 +1,6 @@
 # Timer
 ## A simple customizable timer!
-[Live at]()
+[Live at](https://mirka-0.github.io/Timer/)
 [Hackatime](https://hackatime.hackclub.com/@Mirka/project/Timer)
 
 Built using HTML, CSS and JavaScript (no external dependencies)
@@ -19,7 +19,7 @@ This project lets you choose your own alarm music and change the background :D
 
 ## Preview:
 On Desktop
-![image alt]()
+![image alt](https://github.com/Mirka-0/Timer/blob/556e95373dc844b0100365f0a2e50eed8480d4ac/screenshots/Computer.png)
 
 On Mobile
 ![image alt]()
