@@ -23,8 +23,7 @@ On Desktop
 ![image alt](https://github.com/Mirka-0/Timer/blob/556e95373dc844b0100365f0a2e50eed8480d4ac/screenshots/Computer.png)
 
 On Mobile
-![image alt]()
-
+![image alt](https://github.com/Mirka-0/Timer/blob/21183f7e20043b8f77c204f9809a3e4aa0775835/screenshots/Phone.jpg)
 
 ## How to use:
 1. Enter the time you want.
